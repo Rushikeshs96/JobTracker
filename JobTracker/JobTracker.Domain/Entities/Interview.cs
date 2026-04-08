@@ -11,11 +11,11 @@ namespace JobTracker.Domain.Entities
     {
         public int Id { get; set; }
 
-        public int JobApplicationId { get; set; }
+        public int? JobApplicationId { get; set; }
 
-        public DateTime InterviewDate { get; set; }
+        public DateTime? InterviewDate { get; set; }
 
-        public InterviewType Type { get; set; }
+        public InterviewType? Type { get; set; }
 
         public string? InterviewerName { get; set; }
 
