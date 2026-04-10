@@ -1,0 +1,85 @@
+🗄️ Entities (Database Models)
+1. JobApplication
+Id (int)
+CompanyName (string)
+JobTitle (string)
+JobDescription (string)
+JobPostingUrl (string)
+SalaryRange (string)
+Status (JobStatus Enum)
+DateApplied (DateTime)
+Notes (string)
+Relationships: Has many Interviews and Contacts.
+
+2. Interview
+Id (int)
+JobApplicationId (int) - Foreign Key
+InterviewDate (DateTime)
+Type (InterviewType Enum)
+InterviewerName (string)
+Notes (string)
+MeetingLink (string)
+Relationships: Belongs to a JobApplication.
+
+3. Contact
+Id (int)
+FullName (string)
+Role (string)
+Email (string)
+LinkedInUrl (string)
+JobApplicationId (int) - Foreign Key
+Relationships: Belongs to a JobApplication.
+
+🏷️ Enums
+JobStatus
+Applied, PhoneScreen, Technical, FinalInterview, Offer, Rejected, Ghosted
+
+InterviewType
+HR, Technical, CodingChallenge, Behavioral, SystemDesign
+
+🌐 API Endpoints
+1. Jobs API (/api/Job)
+GET /api/Job
+Fetches a list of all job applications.
+GET /api/Job/{id}
+Fetches a specific job application by ID (includes associated interviews).
+POST /api/Job
+Creates a new job application.
+PUT /api/Job/{id}
+Updates an existing job application.
+DELETE /api/Job/{id}
+Deletes a specific job application.
+
+2. Interviews API (/api/Interviews)
+GET /api/Interviews
+Fetches a list of all interviews.
+GET /api/Interviews/{id}
+Fetches a specific interview by ID.
+GET /api/Interviews/job/{jobId}
+Fetches all interview rounds for a specific job application.
+POST /api/Interviews
+Creates a new interview.
+PUT /api/Interviews/{id}
+Updates an existing interview.
+DELETE /api/Interviews/{id}
+Deletes a specific interview.
+
+3. Contacts API (/api/Contacts)
+GET /api/Contacts
+Fetches a list of all contacts.
+GET /api/Contacts/{id}
+Fetches a specific contact by ID.
+GET /api/Contacts/jobApplicationId/{id}
+Fetches all contacts associated with a specific job application.
+POST /api/Contacts
+Creates a new contact.
+POST /api/Contacts/{id} (Note: Usually this is PUT, but mapped as POST in your code)
+Updates an existing contact.
+DELETE /api/Contacts/{id}
+Deletes a specific contact.
+
+4. Dashboard API (/api/DashBoard)
+GET /api/DashBoard/stats
+Returns aggregation statistics (Total jobs, and counts for Applied, PhoneScreen, Technical, FinalInterview, Offer, Rejected, Ghosted).
+GET /api/DashBoard/upcoming
+Returns a list of interviews scheduled between today and the next 7 days.
