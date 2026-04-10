@@ -66,5 +66,10 @@ npm run start    ||  ng serve
 All above commands for creating angular application
 
 -----------------------------------------------------------------------------------
+11) import httpclientmodule in app-module.ts
 
 
+
+12) generate service
+	
+	ng generate service job   // this will create jobservice
