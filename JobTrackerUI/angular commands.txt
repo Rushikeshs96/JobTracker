@@ -1,0 +1,70 @@
+commands used for angular
+
+1) to create new angular app : 
+
+ng new JobTrackerUI --no-standalone
+
+ 2) Do you want to create a 'zoneless' application without zone.js (Developer Preview)? 
+
+No
+
+3) Which stylesheet format would you like to use?
+
+css
+
+4) Do you want to enable Server-Side Rendering (SSR) and Static Site Generation (SSG/Prerendering)?
+
+No
+
+
+5)  Go into created project
+
+ cd JobTrackerUI
+
+6) Install Bootstrap
+
+npm install bootstrap bootstrap-icons
+
+7) install angular material
+
+ng add @angular/material
+
+ Select a pair of starter prebuilt color palettes for your Angular Material theme : 
+
+ Azure/Blue
+
+
+8) to use bootstarp in application configure it first by placing its path in angular.json style tag
+
+"styles": [
+  "node_modules/bootstrap/dist/css/bootstrap.min.css",
+  "src/styles.css"
+],
+
+
+9) if Cors used in backend middlewear then create file named proxy.conf.json in main project and add belows code 
+
+{
+  "/api": {
+    "target": "https://localhost:5267",    //5267 is backend port
+    "secure": false
+  }
+}
+
+Then, in angular.json, under the serve section, add:
+
+"options": {
+  "proxyConfig": "proxy.conf.json"
+}
+
+10) To run angular application 
+
+npm run start    ||  ng serve
+
+----------------------------------------------------------------------------------
+
+All above commands for creating angular application
+
+-----------------------------------------------------------------------------------
+
+
