@@ -1,37 +1,34 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { JobApplication } from '../models/models';
-
 @Injectable({
   providedIn: 'root',
 })
 export class JobService {
   
-  private apiUrl = 'https://localhost:5267/api/Job'; 
+  private baseUrl = `${environment.apiUrl}/Job`;
 
-  constructor(private http : HttpClient){
+  constructor(private http: HttpClient){}
 
+  getAllJobApplications(): Observable<JobApplication[]>{
+    return this.http.get<JobApplication[]>(this.baseUrl);
   }
 
-  getAllJobs(): Observable<JobApplication[]>{
-    return this.http.get<JobApplication[]>(this.apiUrl);
+  getJobApplicationById(id : number):Observable<JobApplication>{
+    return this.http.get<JobApplication>(`${this.baseUrl}/${id}`);
   }
 
-  getJobById(id : number): Observable<JobApplication>{
-    return this.http.get<JobApplication>(`${this.apiUrl}/${id}`)
+   createJobApplication(Job : JobApplication):Observable<JobApplication>{
+    return this.http.post<JobApplication>(this.baseUrl, Job);
   }
 
-  createJob(job:JobApplication): Observable<JobApplication>{
-    return this.http.post<JobApplication>(this.apiUrl,job);
+   updateJobApplication(id : number, job : JobApplication):Observable<any>{
+    return this.http.put<any>(`${this.baseUrl}/${id}`, job);
   }
 
-  updateJob(id: number, job:JobApplication): Observable<any>{
-    return this.http.put<any>(`${this.apiUrl}/${id}`,job)
+   deleteJobApplication(id : number):Observable<any>{
+    return this.http.delete<any>(`${this.baseUrl}/${id}`);
   }
-
-  deleteJob(id:number): Observable<any>{
-    return this.http.delete<any>(`${this.apiUrl}/${id}`)
-  }
-
 }

@@ -1,22 +1,21 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { DashboardStats, Interview } from '../models/models';
+import { environment } from '../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DashboardService {
-  private apiUrl = 'https://localhost:5267/api/DashBoard'; 
+   private baseUrl = `${environment.apiUrl}/DashBoard`;
 
   constructor(private http: HttpClient) { }
 
-  getStats(): Observable<DashboardStats> {
-    return this.http.get<DashboardStats>(`${this.apiUrl}/stats`);
+  getStats(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/stats`);
   }
 
-  getUpcomingInterviews(): Observable<Interview[]> {
-    return this.http.get<Interview[]>(`${this.apiUrl}/upcoming`);
+  getUpcomingInterviews(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/upcoming`);
   }
 }
-
