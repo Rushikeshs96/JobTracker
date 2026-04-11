@@ -1,37 +1,37 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Contact } from '../models/models';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ContactService {
-   private apiUrl = 'https://localhost:5267/api/Contacts'; 
+  private baseUrl = `${environment.apiUrl}/Contacts`;
 
-   constructor(private http: HttpClient){}
+  constructor(private http: HttpClient) { }
 
-   getContacts():Observable<Contact[]>{
-    return this.http.get<Contact[]>(this.apiUrl)
-   }
-
-   getContactById(id : number): Observable<Contact>{
-    return this.http.get<Contact>(`${this.apiUrl}/${id}`)
-   }
-
-    getContactsByJobId(jobId: number): Observable<Contact[]> {
-    return this.http.get<Contact[]>(`${this.apiUrl}/jobApplicationId/${jobId}`);
+  getAllContacts(): Observable<any[]> {
+    return this.http.get<any[]>(this.baseUrl);
   }
 
-   createContact(contact: Contact):Observable<Contact>{
-    return this.http.post<Contact>(this.apiUrl,contact);
-   }
+  getContactById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/${id}`);
+  }
 
-   updateContact(id:number, contact :Contact): Observable<any>{
-    return this.http.put<any>(`${this.apiUrl}/${id}`,contact);
-   }
+  getContactsByJobId(jobId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/jobApplicationId/${jobId}`);
+  }
 
-   deleteContact(id: number): Observable<any>{
-    return this.http.delete<any>(`${this.apiUrl}/${id}`);
-   }
+  createContact(contact: any): Observable<any> {
+    return this.http.post<any>(this.baseUrl, contact);
+  }
+
+  updateContact(id: number, contact: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/${id}`, contact);
+  }
+
+  deleteContact(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/${id}`);
+  }
 }
