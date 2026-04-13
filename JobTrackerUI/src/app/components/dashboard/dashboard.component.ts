@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DashboardStats, Interview } from '../../models/models';
+import { DashboardStats, Interview, InterviewType } from '../../models/models';
 import { DashboardService } from '../../services/dashboard.service';
 
 @Component({
@@ -16,6 +16,10 @@ export class DashboardComponent {
   constructor(private dashboardService : DashboardService){}
 
   ngOnInit(): void{
+   // this.loadDashBordData();
+    this.loadDummyData();
+
+    // 2. Then call the real API
     this.loadDashBordData();
   }
 
@@ -32,5 +36,36 @@ export class DashboardComponent {
       next:(data)=>this.upcomingInterviews = data,
       error:(error) => console.error('error loading upcoming interviews', error)
      });
+  }
+
+  loadDummyData(): void {
+    this.stats = {
+      totalJobs: 15,
+      applied: 5,
+      phoneScreen: 3,
+      technical: 2,
+      finalInterview: 1,
+      offer: 1,
+      rejected: 2,
+      ghosted: 1
+    };
+
+    this.upcomingInterviews = [
+      {
+        id: 1,
+        jobApplicationId: 101,
+        interviewDate: new Date(),
+        type: InterviewType.Technical,
+        interviewerName: 'John Doe',
+        notes: 'Prepare for LeetCode'
+      },
+      {
+        id: 2,
+        jobApplicationId: 102,
+        interviewDate: new Date(new Date().setDate(new Date().getDate() + 2)), // 2 days from now
+        type: InterviewType.Behavioral,
+        interviewerName: 'Jane Smith'
+      }
+    ];
   }
 }
