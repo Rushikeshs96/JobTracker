@@ -1,1 +1,41 @@
-<p>dashboard works!</p>
+<div class="conatiner">
+    <h2>Dashboard</h2>
+    <hr>
+        <div class="row text-center" *ngIf="stats">
+            <div class="col-md-4">
+                <mat-card class="p-3 bg-primary text-white">
+                    <h3>Total Jobs</h3>
+                    <p class="display-4">{{ stats.totalJobs }}</p>
+                </mat-card>
+            </div>
+            <div class="col-md-4">
+                <mat-card class="p-3 bg-warning">
+                    <h3>Interviewing</h3>
+                    <p class="display-4">{{ stats.technical + stats.finalInterview }}</p>
+                </mat-card>
+            </div>
+            <div class="col-md-4">
+                <mat-card class="p-3 bg-success text-white">
+                    <h3>Offers</h3>
+                    <p class="display-4">{{ stats.offer }}</p>
+                </mat-card>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <h4>Upcoming interviews</h4>
+            <div *ngIf="upcomingInterviews.length === 0" class="alert alert-danger">
+                No interviews scheduled for the next 7 days.
+            </div>
+        </div>
+
+        <ul class="list-group" *ngIf="upcomingInterviews.length > 0">
+            <li class="list-group-item" *ngFor="let interview of upcomingInterviews">
+                <strong>{{ interview.interviewDate | date:'medium' }}</strong>
+                -
+                {{ interview.type }}
+                with
+                {{ interview.interviewerName }}
+            </li>
+        </ul>
+    </div>
