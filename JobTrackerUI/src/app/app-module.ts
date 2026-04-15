@@ -9,11 +9,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { JobListComponent } from './components/job-list/job-list.component';
 
 @NgModule({
   declarations: [
     App,
-    DashboardComponent
+    DashboardComponent,
+    NavbarComponent,
+    JobListComponent
   ],
   imports: [
     BrowserModule,
