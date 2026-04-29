@@ -9,33 +9,30 @@ import { DashboardService } from '../../services/dashboard.service';
   styleUrl: './dashboard.component.css',
 })
 export class DashboardComponent {
-
   stats: DashboardStats | null = null;
-  upcomingInterviews : Interview [] = [];
+  upcomingInterviews: Interview[] = [];
 
-  constructor(private dashboardService : DashboardService){}
+  constructor(private dashboardService: DashboardService) {}
 
-  ngOnInit(): void{
-   // this.loadDashBordData();
+  ngOnInit(): void {
+    // this.loadDashBordData();
     this.loadDummyData();
 
     // 2. Then call the real API
     this.loadDashBordData();
   }
 
-  loadDashBordData():void{
-     this.dashboardService.getStats()
-     .subscribe({
-      next:(data)=> this.stats = data,
-      error: (err) => console.error(`error loading stats`, err) 
-     });
+  loadDashBordData(): void {
+    this.dashboardService.getStats().subscribe({
+      next: (data) => (this.stats = data),
+      error: (err) => console.error(`error loading stats`, err),
+    });
 
-
-     this.dashboardService.getUpcomingInterviews()
-     .subscribe({
-      next:(data)=>this.upcomingInterviews = data,
-      error:(error) => console.error('error loading upcoming interviews', error)
-     });
+    this.dashboardService.getUpcomingInterviews().subscribe({
+      next: (data) => (this.upcomingInterviews = data),
+      error: (error) =>
+        console.error('error loading upcoming interviews', error),
+    });
   }
 
   loadDummyData(): void {
@@ -47,7 +44,7 @@ export class DashboardComponent {
       finalInterview: 1,
       offer: 1,
       rejected: 2,
-      ghosted: 1
+      ghosted: 1,
     };
 
     this.upcomingInterviews = [
@@ -57,15 +54,15 @@ export class DashboardComponent {
         interviewDate: new Date(),
         type: InterviewType.Technical,
         interviewerName: 'John Doe',
-        notes: 'Prepare for LeetCode'
+        notes: 'Prepare for LeetCode',
       },
       {
         id: 2,
         jobApplicationId: 102,
         interviewDate: new Date(new Date().setDate(new Date().getDate() + 2)), // 2 days from now
         type: InterviewType.Behavioral,
-        interviewerName: 'Jane Smith'
-      }
+        interviewerName: 'Jane Smith',
+      },
     ];
   }
 }
