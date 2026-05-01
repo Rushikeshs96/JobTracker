@@ -16,7 +16,7 @@ export class DashboardComponent {
 
   ngOnInit(): void {
     // this.loadDashBordData();
-    this.loadDummyData();
+    // this.loadDummyData();
 
     // 2. Then call the real API
     this.loadDashBordData();

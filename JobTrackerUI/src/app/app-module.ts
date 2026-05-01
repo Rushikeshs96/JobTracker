@@ -12,9 +12,10 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { JobListComponent } from './components/job-list/job-list.component';
 import { ContactsComponent } from './components/contacts/contacts/contacts.component';
+import { InterviewsComponent } from './components/interviews/interviews/interviews.component';
 
 @NgModule({
-  declarations: [App, DashboardComponent, NavbarComponent, JobListComponent, ContactsComponent],
+  declarations: [App, DashboardComponent, NavbarComponent, JobListComponent, ContactsComponent, InterviewsComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

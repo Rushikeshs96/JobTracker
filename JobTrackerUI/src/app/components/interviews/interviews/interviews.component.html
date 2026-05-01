@@ -1,0 +1,102 @@
+<div class="container mt-4">
+    <div *ngIf="!showform">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2>Interviews</h2>
+            <button class="btn btn-primary" (click)="openCreateForm()">Schedule Interview</button>
+        </div>
+        <div class="card shadow-sm">
+            <div class="card-body table-responsive">
+                <table class=" table table-hover table-responsive">
+                    <thead>
+                        <tr>
+                            <th>Number</th>
+                            <th>Date & Time</th>
+                            <th>Type</th>
+                            <th>Interviewer</th>
+                            <th>Meeting Link</th>
+                            <th>Notes</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let interview of interviews; let i= index">
+                            <td>{{i+1}}</td>
+                            <td>{{ interview.interviewDate }}</td>
+                            <td>{{ interview.type}}</td>
+                            <td>{{ interview.interviewerName}}</td>
+                            <td>
+                                <a *ngIf="interview.meetingLink" [href]="interview.meetingLink" target="_blank"
+                                    class="btn btn-sm btn-outline-primary">Join</a>
+                                <span *ngIf="!interview.meetingLink">-</span>
+                            </td>
+                            <td>{{ interview.notes }}</td>
+                            <td class="d-flex justify-content-end">
+                                <button type="button" class="btn btn-warning me-2" (click)="onUpdateForm(interview)">
+                                    Update
+                                </button>
+                                <button type="button" class="btn btn-danger" (click)="deleteInterview(interview.id)">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                        <tr *ngIf="interviews.length === 0">
+                            <td colspan="7" class="text-center py-3 text-muted">No interviews scheduled.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="showform">
+        <div class="d-flex justify-content-between mb-3 align-items-center">
+            <h2>{{editForm ? 'Update Interview':'Create New Interview'}}</h2>
+            <button class="btn btn-secondary" (click)="cancelForm()">Back To List</button>
+        </div>
+        <div class=" card shadow-sm">
+            <div class="card-body">
+                <form [formGroup]="interviewForm" (ngSubmit)="saveInterview()">
+                    <div class="row">
+                        <div class="col-sm-6 mb-3">
+                            <label class="form-label">Date</label>
+                            <input type="datetime-local" class="form-control" formControlName="interviewDate">
+                        </div>
+                        <div class="col-sm-6 mb-3">
+                            <label class="form-label">Interview Type</label>
+                            <select class="form-select" formControlName="type">
+                                <option [ngValue]="null" disabled>Select Type</option>
+                                <option *ngFor="let opt of interviewTypeOptions" [ngValue]="opt.value">
+                                    {{opt.label}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6 mb-3">
+                            <label class="form-label">Interviewer Name</label>
+                            <input type="text" class="form-control" placeholder="e.g john doe"
+                                formControlName="interviewerName">
+                        </div>
+                        <div class="col-sm-6 mb-3">
+                            <label class="form-label">Interview Link</label>
+                            <input type="url" class="form-control" placeholder="https://..."
+                                formControlName="meetingLink">
+                        </div>
+                        <div class="col-sm-12 mb-3">
+                            <label class="form-label">Notes</label>
+                            <textarea class="form-control" placeholder="Any special instructions..."
+                                formControlName="notes">
+                            </textarea>
+                        </div>
+                        <div class="d-flex justify-content-end mt-3">
+                            <button type="button" class="btn btn-warning me-2" (click)="cancelForm()">
+                                Cancel
+                            </button>
+                            <button type="submit" [disabled]="interviewForm.invalid" class="btn btn-success">
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -25,7 +25,8 @@ export class ContactsComponent implements OnInit {
   constructor(private contactService: ContactService) {}
 
   ngOnInit(): void {
-    this.loadDummyData();
+    // this.loadDummyData();
+    this.getAllContacts();
   }
 
   openCreateForm() {
@@ -61,6 +62,8 @@ export class ContactsComponent implements OnInit {
   }
 
   saveContact() {
+    const { jobApplicationId, ...contactWithoutJobId } = this.currentContact;
+
     if (this.isEditMode) {
       this.contactService
         .updateContact(this.currentContact.id, this.currentContact)

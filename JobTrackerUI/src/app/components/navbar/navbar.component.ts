@@ -21,4 +21,12 @@ export class NavbarComponent {
   naviagateToNewJob() {
     this.router.navigate(['/jobs/new']);
   }
+
+  naviagateToContacts() {
+    this.router.navigate(['/contacts']);
+  }
+
+  naviagateToInterviews() {
+    this.router.navigate(['/interviews']);
+  }
 }

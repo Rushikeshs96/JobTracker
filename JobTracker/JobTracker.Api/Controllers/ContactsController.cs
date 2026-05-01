@@ -37,14 +37,18 @@ namespace JobTracker.Api.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateContact(Contact contact)
         {
+            contact.JobApplicationId = null;
+            contact.jobApplication = null;
             _context.contacts.Add(contact);
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetContactById), new { id = contact.Id }, contact);
         }
 
-        [HttpPost("{id}")]
+        [HttpPut("{id}")]
         public async Task<ActionResult> UpdateContact(int id,Contact contact)
         {
+            contact.JobApplicationId = null;
+            contact.jobApplication = null;
             _context.contacts.Update(contact);
             await _context.SaveChangesAsync();
             return Ok();

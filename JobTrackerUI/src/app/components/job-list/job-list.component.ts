@@ -18,7 +18,8 @@ export class JobListComponent {
   ) {}
 
   ngOnInit() {
-    this.loadDummyJobs();
+    // this.loadDummyJobs();
+    this.getAllJobApplications();
   }
 
   loadDummyJobs(): void {

@@ -18,11 +18,6 @@ namespace JobTracker.Api.Controllers
             _logger = logger;
         }
 
-        //GET /api/interviews/job/{jobId} (Get all interview rounds for a specific job)
-        //POST /api/interviews(Add a new interview round)
-        //PUT /api/interviews/{id
-        //} (Update interview details)
-        //DELETE /api/interviews/{id} (Remove an interview round)
 
         [HttpGet("job/{jobId}")]
         public async Task<ActionResult<List<Interview>>> GetByJobApplication(int jobApplicationId)
@@ -46,6 +41,10 @@ namespace JobTracker.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<Interview>> CreateInterview(Interview interview)
         {
+            if (interview.InterviewDate.HasValue)
+            {
+                interview.InterviewDate = interview.InterviewDate.Value.ToUniversalTime();
+            }
             _context.interviews.Add(interview);
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetById), new { id = interview.Id }, interview);
@@ -54,6 +53,10 @@ namespace JobTracker.Api.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateInterview(int id, Interview interview)
         {
+            if (interview.InterviewDate.HasValue)
+            {
+                interview.InterviewDate = interview.InterviewDate.Value.ToUniversalTime();
+            }
             var exist= await _context.interviews.AnyAsync(i => i.Id == id);
 
             if (!exist)

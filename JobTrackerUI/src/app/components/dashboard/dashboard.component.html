@@ -5,7 +5,8 @@
         <div class="col-md-4">
             <mat-card class="p-3 bg-primary text-white">
                 <h3>Total Jobs</h3>
-                <p class="display-4">{{ stats.totalJobs }}</p>
+                <p class="display-4">{{ stats.applied + stats.finalInterview + stats.ghosted + stats.offer +
+                    stats.phoneScreen + stats.rejected + stats.technical }}</p>
             </mat-card>
         </div>
         <div class="col-md-4">
