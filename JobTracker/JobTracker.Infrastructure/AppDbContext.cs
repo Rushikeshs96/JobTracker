@@ -36,14 +36,14 @@ namespace JobTracker.Infrastructure
                       .HasMaxLength(200);
 
                 // One JobApplication → Many Interviews
-                entity.HasMany(e => e.interviews)
-                      .WithOne(i => i.jobApplication)
+                entity.HasMany(e => e.Interviews)
+                      .WithOne(i => i.JobApplication)
                       .HasForeignKey(i => i.JobApplicationId)
                       .OnDelete(DeleteBehavior.Cascade);
 
                 // One JobApplication → Many Contacts (optional FK)
-                entity.HasMany(e => e.contacts)
-                      .WithOne(c => c.jobApplication)
+                entity.HasMany(e => e.Contacts)
+                      .WithOne(c => c.JobApplication)
                       .HasForeignKey(c => c.JobApplicationId)
                       .OnDelete(DeleteBehavior.SetNull);
             });

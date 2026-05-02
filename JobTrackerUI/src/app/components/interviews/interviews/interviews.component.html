@@ -22,7 +22,7 @@
                         <tr *ngFor="let interview of interviews; let i= index">
                             <td>{{i+1}}</td>
                             <td>{{ interview.interviewDate }}</td>
-                            <td>{{ interview.type}}</td>
+                            <td>{{ getInterviewTypeName(interview.type)}}</td>
                             <td>{{ interview.interviewerName}}</td>
                             <td>
                                 <a *ngIf="interview.meetingLink" [href]="interview.meetingLink" target="_blank"

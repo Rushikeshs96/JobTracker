@@ -1,12 +1,11 @@
-
-export enum JobStatus{
+export enum JobStatus {
   Applied = 0,
   PhoneScreen = 1,
   Technical = 2,
   FinalInterview = 3,
   Offer = 4,
   Rejected = 5,
-  Ghosted = 6
+  Ghosted = 6,
 }
 
 export enum InterviewType {
@@ -14,7 +13,7 @@ export enum InterviewType {
   Technical = 1,
   CodingChallenge = 2,
   Behavioral = 3,
-  SystemDesign = 4
+  SystemDesign = 4,
 }
 
 export interface JobApplication {
@@ -27,6 +26,7 @@ export interface JobApplication {
   status: JobStatus;
   dateApplied: Date;
   notes?: string;
+  contacts?: Contact[];
 }
 
 export interface Interview {
@@ -45,7 +45,7 @@ export interface Contact {
   role?: string;
   email?: string;
   linkedInUrl?: string;
-  jobApplicationId: number;
+  jobApplicationId?: number | null;
 }
 
 export interface DashboardStats {

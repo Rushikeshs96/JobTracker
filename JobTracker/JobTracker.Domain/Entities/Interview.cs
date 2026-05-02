@@ -23,7 +23,7 @@ namespace JobTracker.Domain.Entities
 
         public string? MeetingLink { get; set; }
 
-        public JobApplication? jobApplication { get; set; }
+        public JobApplication? JobApplication { get; set; }
 
     }
 }

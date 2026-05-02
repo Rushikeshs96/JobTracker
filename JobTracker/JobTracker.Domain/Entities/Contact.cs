@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace JobTracker.Domain.Entities
@@ -20,6 +21,7 @@ namespace JobTracker.Domain.Entities
 
         public int? JobApplicationId { get; set; }
 
-        public JobApplication? jobApplication { get; set; }
+        [JsonIgnore]
+        public JobApplication? JobApplication { get; set; }
     }
 }

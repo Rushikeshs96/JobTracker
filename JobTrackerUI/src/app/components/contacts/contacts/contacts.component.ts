@@ -19,7 +19,7 @@ export class ContactsComponent implements OnInit {
     role: '',
     email: '',
     linkedInUrl: '',
-    jobApplicationId: 0,
+    jobApplicationId: null,
   };
 
   constructor(private contactService: ContactService) {}
@@ -38,7 +38,7 @@ export class ContactsComponent implements OnInit {
       role: '',
       email: '',
       linkedInUrl: '',
-      jobApplicationId: 0,
+      jobApplicationId: null,
     };
     this.showForm = true;
   }

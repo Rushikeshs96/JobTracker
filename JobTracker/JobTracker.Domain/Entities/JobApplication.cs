@@ -27,9 +27,9 @@ namespace JobTracker.Domain.Entities
 
         public string? Notes { get; set; }
 
-       public ICollection<Interview>? interviews = new List<Interview>();    
+       public ICollection<Interview>? Interviews { get; set; } = new List<Interview>();    
 
-        public ICollection<Contact>? contacts = new List<Contact>();
+        public ICollection<Contact>? Contacts { get; set; } = new List<Contact>();
 
     }
 }

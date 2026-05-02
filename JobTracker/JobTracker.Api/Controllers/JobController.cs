@@ -21,7 +21,7 @@ namespace JobTracker.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<List<JobApplication>>> GetAllJobApplications()
         {
-            var jobs = await _context.jobApplications.ToListAsync();
+            var jobs = await _context.jobApplications.Include(c=>c.Contacts).ToListAsync();
             return Ok(jobs);
         }
 
@@ -29,7 +29,8 @@ namespace JobTracker.Api.Controllers
         public async Task<ActionResult<JobApplication>> GetJobApplication(int id)
         {
             var job =  await _context.jobApplications
-                .Include(j=>j.interviews)
+                .Include(j=>j.Interviews)
+                .Include(j=>j.Contacts)
                 .Where(j => j.Id == id).FirstOrDefaultAsync();
 
             if(job == null)
@@ -42,6 +43,10 @@ namespace JobTracker.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<JobApplication>> CreateJobApplication(JobApplication jobApplication)
         {
+            if (jobApplication.DateApplied.HasValue)
+            {
+                jobApplication.DateApplied = jobApplication.DateApplied.Value.ToUniversalTime();
+            }
             _context.jobApplications.Add(jobApplication);
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetJobApplication), new { id = jobApplication.Id }, jobApplication);
@@ -53,6 +58,11 @@ namespace JobTracker.Api.Controllers
            if(id != jobApplication.Id)
             {
                 return BadRequest();
+            }
+
+            if (jobApplication.DateApplied.HasValue)
+            {
+                jobApplication.DateApplied = jobApplication.DateApplied.Value.ToUniversalTime();
             }
 
             var exists = await _context.jobApplications.AnyAsync(j=>j.Id == jobApplication.Id);
