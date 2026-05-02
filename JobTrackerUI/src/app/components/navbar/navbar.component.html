@@ -20,6 +20,17 @@
         <li class="nav-item">
           <a class="nav-link" (click)="naviagateToInterviews()" style="cursor: pointer;">Interviews</a>
         </li>
+        <li class="nav-item ms-lg-3 d-flex align-items-center">
+          <div class="form-check form-switch mb-0 mt-1">
+            <!-- The [checked] binding makes sure the switch position matches the saved theme -->
+            <input class="form-check-input custom-toggle" type="checkbox" role="switch" id="themeSwitch"
+              [checked]="isDarkMode" (change)="toggleTheme()">
+            <label class="form-check-label text-light" for="themeSwitch">
+              <!-- Show different icon based on theme next to the switch -->
+              <i class="bi" [ngClass]="isDarkMode ? 'bi-moon-stars-fill' : 'bi-sun-fill'"></i>
+            </label>
+          </div>
+        </li>
       </ul>
     </div>
   </div>

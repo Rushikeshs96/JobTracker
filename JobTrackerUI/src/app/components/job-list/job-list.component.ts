@@ -17,6 +17,7 @@ export class JobListComponent {
   isEditMode: boolean = false;
   applicationForm: FormGroup;
   currentApplicationId: number = 0;
+
   jobStatusOptions = [
     { value: 0, label: 'Applied' },
     { value: 1, label: 'PhoneScreen' },
@@ -25,6 +26,14 @@ export class JobListComponent {
     { value: 4, label: 'Offer' },
     { value: 5, label: 'Rejected' },
     { value: 6, label: 'Ghosted' },
+  ];
+
+  interviewTypeOptions = [
+    { value: 0, label: 'HR' },
+    { value: 1, label: 'Technical' },
+    { value: 2, label: 'Coding Challenge' },
+    { value: 3, label: 'Behavioral' },
+    { value: 4, label: 'System Design' },
   ];
 
   constructor(
@@ -42,6 +51,7 @@ export class JobListComponent {
       dateApplied: ['', Validators.required],
       notes: [''],
       contacts: this.fb.array([]),
+      interviews: this.fb.array([]),
     });
   }
 
@@ -64,6 +74,33 @@ export class JobListComponent {
     this.contactsFormArray.removeAt(index);
   }
 
+  get interviewFormArray(): FormArray {
+    return this.applicationForm.get('interviews') as FormArray;
+  }
+
+  addInterview() {
+    const interviewForm = this.fb.group({
+      id: [0],
+      interviewDate: ['', Validators.required],
+      type: [null, Validators.required],
+      interviewerName: [''],
+      notes: [''],
+      meetingLink: [''],
+    });
+    this.interviewFormArray.push(interviewForm);
+  }
+
+  removeInterview(index: number): void {
+    this.interviewFormArray.removeAt(index);
+  }
+
+  getInterviewTypeName(typeValue: any): string {
+    const option = this.interviewTypeOptions.find(
+      (o) => o.value == typeValue || o.label.replace(' ', '') == typeValue,
+    );
+    return option ? option.label : 'Unknown';
+  }
+
   ngOnInit() {
     // this.loadDummyJobs();
     this.getAllJobApplications();
@@ -80,17 +117,15 @@ export class JobListComponent {
     this.isEditMode = true;
     this.currentApplicationId = application.id;
 
-    // ... your existing date formatting code ...
     let formatedDate = '';
     if (application.dateApplied) {
       const dateObj = new Date(application.dateApplied);
       formatedDate = dateObj.toISOString().substring(0, 16);
     }
 
-    // Clear existing contacts in the FormArray
     this.contactsFormArray.clear();
+    this.interviewFormArray.clear();
 
-    // Populate FormArray with existing contacts from the database
     if (application.contacts && application.contacts.length > 0) {
       application.contacts.forEach((contact) => {
         this.contactsFormArray.push(
@@ -100,6 +135,21 @@ export class JobListComponent {
             role: [contact.role],
             email: [contact.email],
             linkedInUrl: [contact.linkedInUrl],
+          }),
+        );
+      });
+    }
+
+    if (application.interviews && application.interviews.length > 0) {
+      application.interviews.forEach((interview) => {
+        this.interviewFormArray.push(
+          this.fb.group({
+            id: [interview.id],
+            interviewDate: [interview.interviewDate, Validators.required],
+            type: [interview.type, Validators.required],
+            interviewerName: [interview.interviewerName],
+            notes: [interview.notes],
+            meetingLink: [interview.meetingLink],
           }),
         );
       });

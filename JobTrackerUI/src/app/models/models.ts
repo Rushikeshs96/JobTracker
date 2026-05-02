@@ -27,16 +27,17 @@ export interface JobApplication {
   dateApplied: Date;
   notes?: string;
   contacts?: Contact[];
+  interviews?: Interview[];
 }
 
 export interface Interview {
   id: number;
-  jobApplicationId: number;
   interviewDate: Date;
   type: InterviewType;
   interviewerName?: string;
   notes?: string;
   meetingLink?: string;
+  jobApplicationId?: number | null;
 }
 
 export interface Contact {

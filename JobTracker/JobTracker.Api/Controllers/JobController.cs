@@ -21,7 +21,7 @@ namespace JobTracker.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<List<JobApplication>>> GetAllJobApplications()
         {
-            var jobs = await _context.jobApplications.Include(c=>c.Contacts).ToListAsync();
+            var jobs = await _context.jobApplications.Include(c=>c.Contacts).Include(c=>c.Interviews).ToListAsync();
             return Ok(jobs);
         }
 
@@ -47,6 +47,16 @@ namespace JobTracker.Api.Controllers
             {
                 jobApplication.DateApplied = jobApplication.DateApplied.Value.ToUniversalTime();
             }
+            if (jobApplication.Interviews != null && jobApplication.Interviews.Any())
+            {
+                foreach (var interview in jobApplication.Interviews)
+                {
+                    if (interview.InterviewDate.HasValue)
+                    {
+                        interview.InterviewDate = interview.InterviewDate.Value.ToUniversalTime();
+                    }
+                }
+            }
             _context.jobApplications.Add(jobApplication);
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(GetJobApplication), new { id = jobApplication.Id }, jobApplication);
@@ -63,6 +73,16 @@ namespace JobTracker.Api.Controllers
             if (jobApplication.DateApplied.HasValue)
             {
                 jobApplication.DateApplied = jobApplication.DateApplied.Value.ToUniversalTime();
+            }
+            if (jobApplication.Interviews != null && jobApplication.Interviews.Any())
+            {
+                foreach (var interview in jobApplication.Interviews)
+                {
+                    if (interview.InterviewDate.HasValue)
+                    {
+                        interview.InterviewDate = interview.InterviewDate.Value.ToUniversalTime();
+                    }
+                }
             }
 
             var exists = await _context.jobApplications.AnyAsync(j=>j.Id == jobApplication.Id);

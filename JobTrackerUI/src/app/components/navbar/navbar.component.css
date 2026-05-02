@@ -1,0 +1,14 @@
+.nav-link i {
+  transition:
+    transform 0.3s ease,
+    color 0.3s ease;
+}
+
+.nav-link:hover i {
+  transform: scale(1.1);
+}
+
+/* Remove the button border/outline for the theme toggle */
+.btn-link {
+  text-decoration: none;
+}
