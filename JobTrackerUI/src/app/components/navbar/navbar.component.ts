@@ -47,4 +47,7 @@ export class NavbarComponent {
   naviagateTostripeSession() {
     this.router.navigate(['/stripe-session']);
   }
+  naviagateTostripeIntent() {
+    this.router.navigate(['/checkout-v2']);
+  }
 }

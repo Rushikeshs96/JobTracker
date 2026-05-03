@@ -11,7 +11,10 @@ export class StripeApiService {
   constructor(private http: HttpClient) {}
 
   startCheckoutSession(): Observable<{ url: string }> {
-    return this.http.post<{ url: string }>(`${this.apiUrl}/create-session`, {});
+    return this.http.post<{ url: string }>(
+      `${this.apiUrl}/StripeCheckout/create-session`,
+      {},
+    );
   }
 
   createPaymentIntent(): Observable<{ clientSecret: string }> {
