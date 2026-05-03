@@ -17,6 +17,7 @@ import { NgxStripeModule } from 'ngx-stripe';
 import { PaymentSuccessComponentComponent } from './components/stripe learn/stripe session/payment-success-component/payment-success-component.component';
 import { PaymentFailedComponentComponent } from './components/stripe learn/stripe session/payment-failed-component/payment-failed-component.component';
 import { StrpesessionComponent } from './components/stripe learn/stripe session/stripesession/strpesession.component';
+import { CheckoutComponent } from './components/stripe learn/stripe payment intent/checkout/checkout.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { StrpesessionComponent } from './components/stripe learn/stripe session/
     StrpesessionComponent,
     PaymentSuccessComponentComponent,
     PaymentFailedComponentComponent,
+    CheckoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,6 +43,7 @@ import { StrpesessionComponent } from './components/stripe learn/stripe session/
     NgxStripeModule.forRoot(
       'pk_test_51TSvJu1LcOLLXsoi0hdv8LKU6qIz8XnD3vlz7fzf8eLEywl1AvOOxXxBDh0nSHWCSp4zLytAZ88EcvzkqVnbhelM00eK774fwk',
     ),
+    NgxStripeModule,
   ],
   providers: [provideBrowserGlobalErrorListeners()],
   bootstrap: [App],

@@ -1,0 +1,17 @@
+<div style="max-width: 500px; margin: 40px auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
+    <h2>Complete Payment</h2>
+
+    <div *ngIf="elementsOptions.clientSecret; else loading">
+        <!-- Stripe's Dynamic Payment Element -->
+        <ngx-stripe-payment [elementsOptions]="elementsOptions"></ngx-stripe-payment>
+
+        <button (click)="confirmPayment()" [disabled]="isProcessing()"
+            style="margin-top: 20px; width: 100%; padding: 12px; background: #5469d4; color: white; border: none; border-radius: 4px;">
+            {{ isProcessing() ? 'Processing...' : 'Pay $50.00' }}
+        </button>
+    </div>
+
+    <ng-template #loading>
+        <p>Loading secure payment form...</p>
+    </ng-template>
+</div>

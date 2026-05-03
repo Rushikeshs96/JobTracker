@@ -28,9 +28,16 @@ namespace JobTracker.Api
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            var app = builder.Build();
+            var stripeSecretKey = builder.Configuration["Stripe:SecretKey"];
+            if (string.IsNullOrWhiteSpace(stripeSecretKey))
+            {
+                throw new InvalidOperationException(
+                    "Stripe:SecretKey is missing. Set it in configuration or user secrets before starting the API.");
+            }
 
-            StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Value;
+            StripeConfiguration.ApiKey = stripeSecretKey;
+
+            var app = builder.Build();
 
             app.UseCors("CorsPolicy");
 

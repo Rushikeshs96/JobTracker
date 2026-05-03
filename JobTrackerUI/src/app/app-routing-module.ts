@@ -7,6 +7,7 @@ import { InterviewsComponent } from './components/interviews/interviews/intervie
 import { PaymentSuccessComponentComponent } from './components/stripe learn/stripe session/payment-success-component/payment-success-component.component';
 import { PaymentFailedComponentComponent } from './components/stripe learn/stripe session/payment-failed-component/payment-failed-component.component';
 import { StrpesessionComponent } from './components/stripe learn/stripe session/stripesession/strpesession.component';
+import { CheckoutComponent } from './components/stripe learn/stripe payment intent/checkout/checkout.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'stripe-session', component: StrpesessionComponent },
   { path: 'payment-success', component: PaymentSuccessComponentComponent },
   { path: 'payment-failed', component: PaymentFailedComponentComponent },
+  { path: 'checkout-v2', component: CheckoutComponent },
   { path: '**', redirectTo: '/dashboard' },
 ];
 

@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { StripeService } from '../../../../services/stripe/stripe.service';
+import { StripeApiService } from '../../../../services/stripe/stripe.service';
 
 @Component({
   selector: 'app-strpesession',
@@ -10,7 +10,7 @@ import { StripeService } from '../../../../services/stripe/stripe.service';
 export class StrpesessionComponent {
   protected readonly title = signal('JobTrackerUI');
 
-  constructor(private stripeService: StripeService) {}
+  constructor(private stripeService: StripeApiService) {}
 
   onCheckout() {
     this.stripeService.startCheckoutSession().subscribe({
