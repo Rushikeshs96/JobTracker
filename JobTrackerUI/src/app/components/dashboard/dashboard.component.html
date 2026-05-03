@@ -1,60 +1,110 @@
-<div class="conatiner">
-    <h2>Dashboard</h2>
-    <hr>
-    <div class="row text-center" *ngIf="stats">
+<div class="container mt-4 bg-light p-3 rounded">
+    <h2 class="mb-3">Dashboard</h2>
+    <hr />
+
+    <div class="row g-4 text-center" *ngIf="stats">
+
+        <!-- Total -->
         <div class="col-md-4">
-            <mat-card class="p-3 bg-primary text-white">
-                <h3>Total</h3>
-                <p class="display-4">{{ stats.applied + stats.finalInterview + stats.ghosted + stats.offer +
-                    stats.phoneScreen + stats.rejected + stats.technical }}</p>
+            <mat-card class="p-4 shadow border-0 bg-white rounded-3">
+                <div
+                    class="d-flex justify-content-between align-items-center border-start border-4 border-primary ps-2">
+                    <h6 class="text-muted mb-0">Total</h6>
+                    <i class="bi bi-bar-chart fs-4 text-primary"></i>
+                </div>
+                <h2 class="fw-bold mt-3">
+                    {{ stats.applied + stats.finalInterview + stats.ghosted + stats.offer +
+                    stats.phoneScreen + stats.rejected + stats.technical }}
+                </h2>
             </mat-card>
         </div>
+
+        <!-- Interviewing -->
         <div class="col-md-4">
-            <mat-card class="p-3 bg-warning">
-                <h3>Interviewing</h3>
-                <p class="display-4">{{ stats.technical + stats.finalInterview }}</p>
+            <mat-card class="p-4 shadow border-0 bg-white rounded-3">
+                <div
+                    class="d-flex justify-content-between align-items-center border-start border-4 border-warning ps-2">
+                    <h6 class="text-muted mb-0">Interviewing</h6>
+                    <i class="bi bi-person-workspace fs-4 text-warning"></i>
+                </div>
+                <h2 class="fw-bold mt-3">
+                    {{ stats.technical + stats.finalInterview }}
+                </h2>
             </mat-card>
         </div>
+
+        <!-- Offers -->
         <div class="col-md-4">
-            <mat-card class="p-3 bg-success text-white">
-                <h3>Offers</h3>
-                <p class="display-4">{{ stats.offer }}</p>
+            <mat-card class="p-4 shadow border-0 bg-white rounded-3">
+                <div
+                    class="d-flex justify-content-between align-items-center border-start border-4 border-success ps-2">
+                    <h6 class="text-muted mb-0">Offers</h6>
+                    <i class="bi bi-trophy fs-4 text-success"></i>
+                </div>
+                <h2 class="fw-bold mt-3">{{ stats.offer }}</h2>
             </mat-card>
         </div>
-        <div class="col-md-4 mt-3">
-            <mat-card class="p-3 bg-primary text-white">
-                <h3>Applied</h3>
-                <p class="display-4">{{ stats.applied }}</p>
+
+        <!-- Applied -->
+        <div class="col-md-4">
+            <mat-card class="p-4 shadow border-0 bg-white rounded-3">
+                <div
+                    class="d-flex justify-content-between align-items-center border-start border-4 border-primary ps-2">
+                    <h6 class="text-muted mb-0">Applied</h6>
+                    <i class="bi bi-send fs-4 text-primary"></i>
+                </div>
+                <h2 class="fw-bold mt-3">{{ stats.applied }}</h2>
             </mat-card>
         </div>
-        <div class="col-md-4 mt-3">
-            <mat-card class="p-3 bg-warning ">
-                <h3>PhoneScreen</h3>
-                <p class="display-4">{{ stats.phoneScreen }}</p>
+
+        <!-- Phone Screen -->
+        <div class="col-md-4">
+            <mat-card class="p-4 shadow border-0 bg-white rounded-3">
+                <div class="d-flex justify-content-between align-items-center border-start border-4 border-info ps-2">
+                    <h6 class="text-muted mb-0">Phone Screen</h6>
+                    <i class="bi bi-telephone fs-4 text-info"></i>
+                </div>
+                <h2 class="fw-bold mt-3">{{ stats.phoneScreen }}</h2>
             </mat-card>
         </div>
-        <div class="col-md-4 mt-3">
-            <mat-card class="p-3 bg-success text-white">
-                <h3>rejected</h3>
-                <p class="display-4">{{ stats.rejected }}</p>
+
+        <!-- Rejected -->
+        <div class="col-md-4">
+            <mat-card class="p-4 shadow border-0 bg-white rounded-3">
+                <div class="d-flex justify-content-between align-items-center border-start border-4 border-danger ps-2">
+                    <h6 class="text-muted mb-0">Rejected</h6>
+                    <i class="bi bi-x-circle fs-4 text-danger"></i>
+                </div>
+                <h2 class="fw-bold mt-3">{{ stats.rejected }}</h2>
             </mat-card>
         </div>
+
     </div>
 
+    <!-- Upcoming Interviews -->
     <div class="mt-5">
-        <h4>Upcoming interviews</h4>
-        <div *ngIf="upcomingInterviews.length === 0" class="alert alert-danger">
+        <h4 class="mb-3">Upcoming Interviews</h4>
+
+        <div *ngIf="upcomingInterviews.length === 0" class="alert alert-light border text-muted">
             No interviews scheduled for the next 7 days.
         </div>
-    </div>
 
-    <ul class="list-group" *ngIf="upcomingInterviews.length > 0">
-        <li class="list-group-item" *ngFor="let interview of upcomingInterviews">
-            <strong>{{ interview.interviewDate | date:'medium' }}</strong>
-            -
-            {{ interview.type }}
-            with
-            {{ interview.interviewerName }}
-        </li>
-    </ul>
+        <ul class="list-group" *ngIf="upcomingInterviews.length > 0">
+            <li class="list-group-item d-flex justify-content-between align-items-center shadow-sm"
+                *ngFor="let interview of upcomingInterviews">
+
+                <div>
+                    <strong>{{ interview.interviewDate | date:'medium' }}</strong><br />
+                    <small class="text-muted">
+                        {{ interview.type }} with {{ interview.interviewerName }}
+                    </small>
+                </div>
+
+                <span class="badge bg-primary rounded-pill px-3 py-2">
+                    {{ interview.type }}
+                </span>
+
+            </li>
+        </ul>
+    </div>
 </div>
