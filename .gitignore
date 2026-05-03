@@ -7,3 +7,5 @@ node_modules/
 dist/
 .angular/
 .tmp/
+appsettings.json
+appsettings.Development.json
