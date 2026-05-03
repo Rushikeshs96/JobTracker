@@ -1,6 +1,7 @@
 
 using JobTracker.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using Stripe;
 
 namespace JobTracker.Api
 {
@@ -28,6 +29,8 @@ namespace JobTracker.Api
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
+
+            StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Value;
 
             app.UseCors("CorsPolicy");
 

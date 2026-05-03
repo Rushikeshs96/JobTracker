@@ -43,4 +43,8 @@ export class NavbarComponent {
   naviagateToInterviews() {
     this.router.navigate(['/interviews']);
   }
+
+  naviagateTostripeSession() {
+    this.router.navigate(['/stripe-session']);
+  }
 }
