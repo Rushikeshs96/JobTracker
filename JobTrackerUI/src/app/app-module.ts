@@ -38,9 +38,7 @@ import { StrpesessionComponent } from './components/stripe learn/stripe session/
     ReactiveFormsModule,
     MatCardModule,
     FormsModule,
-    NgxStripeModule.forRoot(
-      'pk_test_51TSvJu1LcOLLXsoi0hdv8LKU6qIz8XnD3vlz7fzf8eLEywl1AvOOxXxBDh0nSHWCSp4zLytAZ88EcvzkqVnbhelM00eK774fwk',
-    ),
+    NgxStripeModule.forRoot(''),
   ],
   providers: [provideBrowserGlobalErrorListeners()],
   bootstrap: [App],
