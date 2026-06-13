@@ -1,0 +1,45 @@
+<div class="container">
+    <!-- Left Side: Save Information -->
+    <div class="panel">
+        <h2>Save Your Information</h2>
+        <p>Add context to the JobTracker AI brain.</p>
+
+        <div class="form-group">
+            <label>Source Name (e.g., Resume, Notes)</label>
+            <input type="text" [(ngModel)]="infoSource" placeholder="Enter source name..." />
+        </div>
+
+        <div class="form-group">
+            <label>Information Content</label>
+            <textarea rows="6" [(ngModel)]="infoContent" placeholder="Paste your text here..."></textarea>
+        </div>
+
+        <button (click)="saveInformation()" [disabled]="isSaving || !infoContent || !infoSource">
+            {{ isSaving ? 'Saving to Vector DB...' : 'Save Information' }}
+        </button>
+
+        <p class="success-msg" *ngIf="saveMessage">{{ saveMessage }}</p>
+    </div>
+
+    <!-- Right Side: Chat Interface -->
+    <div class="panel">
+        <h2>Chat with JobTracker AI</h2>
+        <p>Ask questions based on the saved information.</p>
+
+        <div class="chat-box">
+            <div *ngFor="let msg of chatHistory"
+                [ngClass]="{'user-msg': msg.role === 'User', 'ai-msg': msg.role === 'JobTracker AI'}">
+                <strong>{{ msg.role }}:</strong>
+                <p style="white-space: pre-wrap;">{{ msg.text }}</p>
+            </div>
+            <div *ngIf="isAsking" class="ai-msg">
+                <em>Thinking... Fetching vectors and asking Gemini...</em>
+            </div>
+        </div>
+
+        <div class="chat-input-area">
+            <input type="text" [(ngModel)]="question" (keyup.enter)="askQuestion()" placeholder="Ask a question..." />
+            <button (click)="askQuestion()" [disabled]="isAsking || !question">Send</button>
+        </div>
+    </div>
+</div>

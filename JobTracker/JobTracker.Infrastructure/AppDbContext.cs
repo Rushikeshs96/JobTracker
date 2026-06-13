@@ -29,7 +29,7 @@ namespace JobTracker.Infrastructure
 
             modelBuilder.Entity<DocumentChunk>()
            .Property(d => d.Embedding)
-           .HasColumnType("vector(768)");
+           .HasColumnType("vector(3072)");
 
             modelBuilder.Entity<JobApplication>(entity =>
             {

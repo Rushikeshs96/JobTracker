@@ -1,4 +1,5 @@
 
+using JobTracker.Api.Services;
 using JobTracker.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Pgvector.EntityFrameworkCore;
@@ -13,7 +14,8 @@ namespace JobTracker.Api
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
+            builder.Services.AddHttpClient<GeminiService>();
+            builder.Services.AddScoped<RagService>();
             builder.Services.AddControllers();
             builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseNpgsql(

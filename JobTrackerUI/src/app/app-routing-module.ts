@@ -9,6 +9,7 @@ import { PaymentFailedComponentComponent } from './components/stripe learn/strip
 import { StrpesessionComponent } from './components/stripe learn/stripe session/stripesession/strpesession.component';
 import { CheckoutComponent } from './components/stripe learn/stripe payment intent/checkout/checkout.component';
 import { PricingComponent } from './components/stripe learn/subscription/pricing/pricing.component';
+import { RagComponent } from './components/rag/rag.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'payment-failed', component: PaymentFailedComponentComponent },
   { path: 'checkout-v2', component: CheckoutComponent },
   { path: 'subscription', component: PricingComponent },
+  { path: 'rag', component: RagComponent },
   { path: '**', redirectTo: '/dashboard' },
 ];
 
