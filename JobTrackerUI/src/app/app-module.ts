@@ -18,6 +18,7 @@ import { PaymentSuccessComponentComponent } from './components/stripe learn/stri
 import { PaymentFailedComponentComponent } from './components/stripe learn/stripe session/payment-failed-component/payment-failed-component.component';
 import { StrpesessionComponent } from './components/stripe learn/stripe session/stripesession/strpesession.component';
 import { CheckoutComponent } from './components/stripe learn/stripe payment intent/checkout/checkout.component';
+import { PricingComponent } from './components/stripe learn/subscription/pricing/pricing.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { CheckoutComponent } from './components/stripe learn/stripe payment inte
     PaymentSuccessComponentComponent,
     PaymentFailedComponentComponent,
     CheckoutComponent,
+    PricingComponent,
   ],
   imports: [
     BrowserModule,

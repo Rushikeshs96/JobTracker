@@ -40,6 +40,34 @@ namespace JobTracker.Api.Controllers
                     Console.WriteLine($"Payment failed: {paymentIntent.LastPaymentError?.Message}");
                 }
 
+                switch (stripeEvent.Type)
+                {
+                    case "customer.subscription.created":
+                        var sub = stripeEvent.Data.Object as Subscription;
+
+                        // --- GET METADATA HERE ---
+                        var userId = sub.Metadata.GetValueOrDefault("AppUserId");
+                        var planName = sub.Metadata.GetValueOrDefault("PlanType");
+
+                        Console.WriteLine($"New subscription for User: {userId}, Plan: {planName}");
+
+                        // Now you can do: 
+                        // _db.Users.FirstOrDefault(u => u.Id == userId).IsPremium = true;
+                        break;
+
+                    case "checkout.session.completed":
+                        var session = stripeEvent.Data.Object as Stripe.Checkout.Session;
+
+                        // You can also get it from the session
+                        var userIdFromSession = session.Metadata.GetValueOrDefault("AppUserId");
+                        break;
+
+                    case "invoice.paid":
+                        var invoice = stripeEvent.Data.Object as Invoice;
+                        // Note: Invoices often carry metadata from the subscription
+                        break;
+                }
+
                 return Ok();
             }
             catch (StripeException e)

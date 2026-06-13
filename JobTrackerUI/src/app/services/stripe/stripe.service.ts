@@ -23,4 +23,32 @@ export class StripeApiService {
       {},
     );
   }
+
+  redirectToSubscription(
+    email: string,
+    priceId: string,
+    userId: string,
+    planName: string,
+  ) {
+    this.http
+      .post<{ url: string }>(
+        `${this.apiUrl}/subscription/create-checkout-session`,
+        {
+          email,
+          priceId,
+          userId,
+          planName,
+        },
+      )
+      .subscribe((res) => (window.location.href = res.url));
+  }
+  goToBillingPortal(stripeCustomerId: string) {
+    this.http
+      .post<{
+        url: string;
+      }>(`${this.apiUrl}/subscription/create-portal-session`, {
+        stripeCustomerId,
+      })
+      .subscribe((res) => (window.location.href = res.url));
+  }
 }

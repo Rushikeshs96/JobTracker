@@ -50,4 +50,8 @@ export class NavbarComponent {
   naviagateTostripeIntent() {
     this.router.navigate(['/checkout-v2']);
   }
+
+  naviagateToSubscription() {
+    this.router.navigate(['/subscription']);
+  }
 }
