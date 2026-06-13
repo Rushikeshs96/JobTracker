@@ -2,6 +2,7 @@
 using JobTracker.Api.Services;
 using JobTracker.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.SemanticKernel;
 using Pgvector.EntityFrameworkCore;
 using Stripe;
 
@@ -12,6 +13,19 @@ namespace JobTracker.Api
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            var geminiApiKey = builder.Configuration["Gemini:ApiKey"]
+                   ?? throw new Exception("Gemini API Key is missing.");
+
+            builder.Services.AddKernel()
+                // Add Chat Completion (for answering questions)
+                .AddGoogleAIGeminiChatCompletion(
+                    modelId: "gemini-2.5-flash",
+                    apiKey: geminiApiKey)
+                // Add Text Embedding (for generating 3072-dimension vectors)
+                .AddGoogleAIEmbeddingGenerator(
+                    modelId: "gemini-embedding-2",
+                    apiKey: geminiApiKey);
 
             // Add services to the container.
             builder.Services.AddHttpClient<GeminiService>();
