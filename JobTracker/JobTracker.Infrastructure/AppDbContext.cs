@@ -18,12 +18,18 @@ namespace JobTracker.Infrastructure
         public DbSet<JobApplication> jobApplications { get; set; }
         public DbSet<Interview> interviews { get; set; }
         public DbSet<Contact> contacts { get; set; }
+        public DbSet<DocumentChunk> DocumentChunks { get; set; }
 
 
         //on modelcreating is not compulsury if proper relation is already there in entities. if you want to exmplicitly add relations in appdbscontext or  add validations then you can use onmodelcreating
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.HasPostgresExtension("vector");
+
+            modelBuilder.Entity<DocumentChunk>()
+           .Property(d => d.Embedding)
+           .HasColumnType("vector(768)");
 
             modelBuilder.Entity<JobApplication>(entity =>
             {

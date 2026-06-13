@@ -1,6 +1,7 @@
 
 using JobTracker.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using Pgvector.EntityFrameworkCore;
 using Stripe;
 
 namespace JobTracker.Api
@@ -15,7 +16,9 @@ namespace JobTracker.Api
 
             builder.Services.AddControllers();
             builder.Services.AddDbContext<AppDbContext>(options =>
-            options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
+            options.UseNpgsql(
+                builder.Configuration.GetConnectionString("DefaultConnection"),
+                npgsqlOptions => npgsqlOptions.UseVector())
              .UseSnakeCaseNamingConvention()
             );
 
